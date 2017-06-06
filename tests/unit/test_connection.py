@@ -20,18 +20,13 @@
 from unittest import TestCase
 from mongoengine.connection import _connection_settings
 from mongomotor import connect, disconnect
-from mongomotor.connection import (MongoMotorAsyncIOClient,
-                                   MongoMotorTornadoClient)
+from mongomotor.connection import (MongoMotorAsyncIOClient)
 
 
 class ConnectionTest(TestCase):
 
     def tearDown(self):
         disconnect()
-
-    def test_connect_with_tornado(self):
-        conn = connect(async_framework='tornado')
-        self.assertTrue(isinstance(conn, MongoMotorTornadoClient))
 
     def test_connect_with_asyncio(self):
         conn = connect()
