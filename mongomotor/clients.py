@@ -18,15 +18,10 @@
 # along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
 
 from motor.frameworks import asyncio as asyncio_framework
-from motor.frameworks import tornado as tornado_framework
 from motor.metaprogramming import create_class_with_framework
 from mongomotor.core import (MongoMotorAgnosticClient)
 
 
 MongoMotorAsyncIOClient = create_class_with_framework(MongoMotorAgnosticClient,
                                                       asyncio_framework,
-                                                      'mongomotor.clients')
-
-MongoMotorTornadoClient = create_class_with_framework(MongoMotorAgnosticClient,
-                                                      tornado_framework,
                                                       'mongomotor.clients')
