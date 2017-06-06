@@ -16,6 +16,7 @@ pip-log.txt
 dist/
 build/
 *.egg-info/
+*.eggs
 mongoengine
 mongoengine*.egg
 /.dir-locals.el
