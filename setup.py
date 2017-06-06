@@ -28,7 +28,7 @@ MongoMotor: An async document-object mapper for MongoDB
 """
 LONG_DESCRIPTION = get_long_description_from_file()
 
-setup(name='mongomotor',
+setup(name='asymongo',
       version=VERSION,
       author='BeePaste',
       author_email='hi@beepaste.io',
