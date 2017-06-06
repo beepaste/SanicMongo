@@ -30,8 +30,8 @@ LONG_DESCRIPTION = get_long_description_from_file()
 
 setup(name='mongomotor',
       version=VERSION,
-      author='Juca Crispim',
-      author_email='juca@poraodojuca.net',
+      author='BeePaste',
+      author_email='hi@beepaste.io',
       description=DESCRIPTION,
       long_description=LONG_DESCRIPTION,
       url='http://mongomotor.poraodojuca.net/',
