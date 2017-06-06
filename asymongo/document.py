@@ -2,29 +2,29 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 
 from mongoengine import (Document as DocumentBase,
                          DynamicDocument as DynamicDocumentBase)
 from mongoengine.errors import InvalidDocumentError, InvalidQueryError
-from mongomotor.fields import ReferenceField, ComplexBaseField
-from mongomotor.metaprogramming import (AsyncDocumentMetaclass, Async, Sync,
+from asymongo.fields import ReferenceField, ComplexBaseField
+from asymongo.metaprogramming import (AsyncDocumentMetaclass, Async, Sync,
                                         get_future)
-from mongomotor.queryset import QuerySet
+from asymongo.queryset import QuerySet
 
 
 class Document(DocumentBase, metaclass=AsyncDocumentMetaclass):
@@ -32,15 +32,15 @@ class Document(DocumentBase, metaclass=AsyncDocumentMetaclass):
     collections of documents stored in MongoDB. Inherit from this class, and
     add fields as class attributes to define a document's structure.
     Individual documents may then be created by making instances of the
-    :class:`~mongomotor.Document` subclass.
+    :class:`~asymongo.Document` subclass.
 
     By default, the MongoDB collection used to store documents created using a
-    :class:`~mongomotor.Document` subclass will be the name of the subclass
+    :class:`~asymongo.Document` subclass will be the name of the subclass
     converted to lowercase. A different collection may be specified by
     providing :attr:`collection` to the :attr:`meta` dictionary in the class
     definition.
 
-    A :class:`~mongomotor.Document` subclass may be itself subclassed, to
+    A :class:`~asymongo.Document` subclass may be itself subclassed, to
     create a specialised version of the document that will be stored in the
     same collection. To facilitate this behaviour a `_cls`
     field is added to documents (hidden though the MongoEngine interface).
@@ -48,7 +48,7 @@ class Document(DocumentBase, metaclass=AsyncDocumentMetaclass):
     `_cls` set :attr:`allow_inheritance` to ``False`` in the :attr:`meta`
     dictionary.
 
-    A :class:`~mongomotor.Document` may use a **Capped Collection** by
+    A :class:`~asymongo.Document` may use a **Capped Collection** by
     specifying :attr:`max_documents` and :attr:`max_size` in the :attr:`meta`
     dictionary. :attr:`max_documents` is the maximum number of documents that
     is allowed to be stored in the collection, and :attr:`max_size` is the
@@ -65,7 +65,7 @@ class Document(DocumentBase, metaclass=AsyncDocumentMetaclass):
 
     Automatic index creation can be enabled by specifying
     :attr:`auto_create_index` in the :attr:`meta` dictionary. If this is set to
-    True then indexes will be created by MongoMotor.
+    True then indexes will be created by asymongo.
 
     By default, _cls will be added to the start of every index (that
     doesn't contain a list) if allow_inheritance is True. This can be
@@ -177,7 +177,7 @@ class Document(DocumentBase, metaclass=AsyncDocumentMetaclass):
     @classmethod
     def drop_collection(cls):
         """Drops the entire collection associated with this
-        :class:`mongomotor.Document` type from the database.
+        :class:`asymongo.Document` type from the database.
         """
         cls._collection = None
         db = cls._get_db()

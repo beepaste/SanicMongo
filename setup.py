@@ -7,7 +7,7 @@ def get_version_from_file():
     # get version number from __init__ file
     # before module is installed
 
-    fname = 'mongomotor/__init__.py'
+    fname = 'asymongo/__init__.py'
     with open(fname) as f:
         fcontent = f.readlines()
     version_line = [l for l in fcontent if 'VERSION' in l][0]
@@ -49,4 +49,4 @@ setup(name='asymongo',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],
       test_suite='tests',
-      provides=['mongomotor'])
+      provides=['asymongo'])

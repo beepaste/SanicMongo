@@ -2,26 +2,26 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 from unittest import TestCase
 from unittest.mock import Mock
 from mongoengine import connection as me_connection
-from mongomotor import monkey, Document, metaprogramming
-from mongomotor.connection import connect, disconnect
+from asymongo import monkey, Document, metaprogramming
+from asymongo.connection import connect, disconnect
 
 
 class MonkeyPatcherTest(TestCase):
@@ -40,13 +40,13 @@ class MonkeyPatcherTest(TestCase):
 
 
     def test_patch_async_connections(self):
-        # here we create one mongomotor connection
+        # here we create one asymongo connection
         with monkey.MonkeyPatcher() as p:
             p.patch_sync_connections()
             connect()
 
             with monkey.MonkeyPatcher() as patcher:
-                # the patcher will remove all mongomotor connections
+                # the patcher will remove all asymongo connections
                 patcher.patch_async_connections()
 
                 self.assertEqual(len(me_connection._connections), 0)
@@ -54,7 +54,7 @@ class MonkeyPatcherTest(TestCase):
             self.assertEqual(len(me_connection._connections), 1)
 
     def test_patch_sync_connections(self):
-        # here we create one mongomotor connection
+        # here we create one asymongo connection
         connect()
 
         class TestClass(Document):
@@ -87,4 +87,4 @@ class MonkeyPatcherTest(TestCase):
             patcher.patch_dereference()
 
         from mongoengine.dereference import DeReference
-        self.assertIs(DeReference, monkey.MongoMotorDeReference)
+        self.assertIs(DeReference, monkey.asymongoDeReference)

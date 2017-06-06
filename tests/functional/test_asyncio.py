@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 
 import asyncio
@@ -24,9 +24,9 @@ import os
 import sys
 import unittest
 from mongoengine.errors import OperationError
-from mongomotor import connect, disconnect
-from mongomotor import Document, EmbeddedDocument
-from mongomotor.fields import (StringField, IntField, ListField, DictField,
+from asymongo import connect, disconnect
+from asymongo import Document, EmbeddedDocument
+from asymongo.fields import (StringField, IntField, ListField, DictField,
                                EmbeddedDocumentField, ReferenceField,
                                FileField)
 
@@ -34,11 +34,11 @@ from tests import async_test
 from tests.functional import DATA_DIR
 
 
-db = 'mongomotor-test-{}{}'.format(sys.version_info.major,
+db = 'asymongo-test-{}{}'.format(sys.version_info.major,
                                    sys.version_info.minor)
 
 
-class MongoMotorTest(unittest.TestCase):
+class asymongoTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -50,10 +50,10 @@ class MongoMotorTest(unittest.TestCase):
         disconnect()
 
     def setUp(self):
-        super(MongoMotorTest, self).setUp()
+        super(asymongoTest, self).setUp()
 
         # some models to simple tests over
-        # mongomotor
+        # asymongo
 
         class EmbedRef(EmbeddedDocument):
             list_field = ListField()
@@ -94,7 +94,7 @@ class MongoMotorTest(unittest.TestCase):
         yield from self.otherdoc.drop_collection()
         yield from self.refdoc.drop_collection()
 
-        super(MongoMotorTest, self).tearDown()
+        super(asymongoTest, self).tearDown()
 
     @async_test
     def test_create(self):
@@ -213,7 +213,7 @@ class MongoMotorTest(unittest.TestCase):
         self.assertEqual(count, 3)
 
         with self.assertRaises(Exception):
-            # len does not work with mongomotor
+            # len does not work with asymongo
             len(self.maindoc.objects.count())
 
     @async_test

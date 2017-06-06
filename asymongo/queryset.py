@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 from bson.code import Code
 from bson import SON
@@ -27,12 +27,12 @@ from mongoengine.document import MapReduceDocument
 from mongoengine.queryset.queryset import QuerySet as BaseQuerySet
 from mongoengine.errors import OperationError
 from motor.core import coroutine_annotation
-from mongomotor import PY35
-from mongomotor.dereference import MongoMotorDeReference
-from mongomotor.exceptions import ConfusionError
-from mongomotor.metaprogramming import (get_future, AsyncGenericMetaclass,
+from asymongo import PY35
+from asymongo.dereference import asymongoDeReference
+from asymongo.exceptions import ConfusionError
+from asymongo.metaprogramming import (get_future, AsyncGenericMetaclass,
                                         Async, asynchronize)
-from mongomotor.monkey import MonkeyPatcher
+from asymongo.monkey import MonkeyPatcher
 
 
 class QuerySet(BaseQuerySet, metaclass=AsyncGenericMetaclass):
@@ -64,7 +64,7 @@ class QuerySet(BaseQuerySet, metaclass=AsyncGenericMetaclass):
 
     if PY35:
         exec(textwrap.dedent("""
-        from mongomotor.decorators import aiter_compat
+        from asymongo.decorators import aiter_compat
         @aiter_compat
         def __aiter__(self):
             return self
@@ -313,7 +313,7 @@ class QuerySet(BaseQuerySet, metaclass=AsyncGenericMetaclass):
 
         def _to_list_cb(future):
             # Transforms mongo's raw documents into
-            # mongomotor documents
+            # asymongo documents
             docs_list = future.result()
             final_list = [self._document._from_son(
                 d, _auto_dereference=self._auto_dereference,
@@ -350,7 +350,7 @@ class QuerySet(BaseQuerySet, metaclass=AsyncGenericMetaclass):
 
             This is different from mongoengine's map_reduce. It does not
             support inline map reduce, for that use
-            :meth:`~mongomotor.queryset.QuerySet.inline_map_reduce`. And
+            :meth:`~asymongo.queryset.QuerySet.inline_map_reduce`. And
             It does not return a generator with MapReduceDocument, but
             returns the server response instead.
         """
@@ -395,7 +395,7 @@ class QuerySet(BaseQuerySet, metaclass=AsyncGenericMetaclass):
 
            This method only works with inline map/reduce. If you want to
            send the output to a collection use
-           :meth:`~mongomotor.queryset.Queryset.map_reduce`.
+           :meth:`~asymongo.queryset.Queryset.map_reduce`.
         """
 
         queryset = self.clone()

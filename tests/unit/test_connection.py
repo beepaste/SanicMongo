@@ -2,25 +2,25 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 from unittest import TestCase
 from mongoengine.connection import _connection_settings
-from mongomotor import connect, disconnect
-from mongomotor.connection import (MongoMotorAsyncIOClient)
+from asymongo import connect, disconnect
+from asymongo.connection import (asymongoAsyncIOClient)
 
 
 class ConnectionTest(TestCase):
@@ -30,7 +30,7 @@ class ConnectionTest(TestCase):
 
     def test_connect_with_asyncio(self):
         conn = connect()
-        self.assertTrue(isinstance(conn, MongoMotorAsyncIOClient))
+        self.assertTrue(isinstance(conn, asymongoAsyncIOClient))
 
     def test_registered_connections(self):
         # ensures that a sync connection was registered

@@ -2,32 +2,32 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 import sys
 from unittest import TestCase
 from unittest.mock import Mock
 from motor.frameworks import asyncio as asyncio_framework
 from motor.metaprogramming import create_class_with_framework
-from mongomotor import Document, connect, disconnect, EmbeddedDocument
-from mongomotor.fields import (ReferenceField, ListField,
+from asymongo import Document, connect, disconnect, EmbeddedDocument
+from asymongo.fields import (ReferenceField, ListField,
                                EmbeddedDocumentField, StringField, DictField,
                                BaseList, BaseDict, GridFSProxy, FileField,
                                GridFSError)
-from mongomotor.gridfs import MongoMotorAgnosticGridFS
+from asymongo.gridfs import asymongoAgnosticGridFS
 from tests import async_test
 
 
@@ -35,7 +35,7 @@ class TestReferenceField(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 
@@ -102,7 +102,7 @@ class TestComplexField(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 
@@ -218,7 +218,7 @@ class GridFSProxyTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 
@@ -229,8 +229,8 @@ class GridFSProxyTest(TestCase):
     def test_fs(self):
         proxy = GridFSProxy()
         grid_class = create_class_with_framework(
-            MongoMotorAgnosticGridFS, asyncio_framework,
-            'mongomotor.gridfs')
+            asymongoAgnosticGridFS, asyncio_framework,
+            'asymongo.gridfs')
         self.assertIsInstance(proxy.fs, grid_class)
 
 
@@ -238,7 +238,7 @@ class FileFieldTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 

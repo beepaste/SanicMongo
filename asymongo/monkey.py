@@ -2,26 +2,26 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 from copy import copy
 from mongoengine import connection, dereference
 from pymongo.mongo_client import MongoClient
 from pymongo.mongo_replica_set_client import MongoReplicaSetClient
-from mongomotor.dereference import MongoMotorDeReference
+from asymongo.dereference import asymongoDeReference
 
 
 class MonkeyPatcher:
@@ -99,5 +99,5 @@ class MonkeyPatcher:
         self.patch_item(connection, '_connections', connections)
 
     def patch_dereference(self):
-        self.patch_item(dereference, 'DeReference', MongoMotorDeReference,
+        self.patch_item(dereference, 'DeReference', asymongoDeReference,
                         undo=False)

@@ -2,13 +2,13 @@
 
 import sys
 from unittest import TestCase
-from mongomotor import dereference, Document, connect, disconnect
-from mongomotor.fields import StringField, ListField, ReferenceField
-from mongomotor.metaprogramming import asynchronize
+from asymongo import dereference, Document, connect, disconnect
+from asymongo.fields import StringField, ListField, ReferenceField
+from asymongo.metaprogramming import asynchronize
 from tests import async_test
 
 
-class MongoMotorDeReferenceTest(TestCase):
+class asymongoDeReferenceTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -23,7 +23,7 @@ class MongoMotorDeReferenceTest(TestCase):
         cls.test_ref = TestRef
         cls.test_cls = TestCls
 
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 

@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 from asyncio.futures import Future
 import textwrap
@@ -24,8 +24,8 @@ from unittest.mock import Mock
 from mongoengine import connection
 from motor.metaprogramming import create_class_with_framework
 from motor.frameworks import asyncio as asyncio_framework
-from mongomotor import metaprogramming, Document, monkey, PY35
-from mongomotor.connection import connect, disconnect
+from asymongo import metaprogramming, Document, monkey, PY35
+from asymongo.connection import connect, disconnect
 from tests import async_test
 
 

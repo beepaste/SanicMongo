@@ -2,30 +2,30 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of mongomotor.
+# This file is part of asymongo.
 
-# mongomotor is free software: you can redistribute it and/or modify
+# asymongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# mongomotor is distributed in the hope that it will be useful,
+# asymongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with mongomotor. If not, see <http://www.gnu.org/licenses/>.
+# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
 import sys
 import textwrap
 from unittest import TestCase
 import mongoengine
-from mongomotor import Document, connect, disconnect
-from mongomotor.dereference import MongoMotorDeReference
-from mongomotor.fields import StringField, ListField, IntField, ReferenceField
-from mongomotor.queryset import (QuerySet, OperationError, Code,
+from asymongo import Document, connect, disconnect
+from asymongo.dereference import asymongoDeReference
+from asymongo.fields import StringField, ListField, IntField, ReferenceField
+from asymongo.queryset import (QuerySet, OperationError, Code,
                                  ConfusionError, SON, MapReduceDocument,
                                  PY35)
 from tests import async_test
@@ -35,7 +35,7 @@ class QuerySetTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
-        db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 
@@ -73,7 +73,7 @@ class QuerySetTest(TestCase):
     def test_dereference(self):
         collection = self.test_doc._collection
         qs = QuerySet(self.test_doc, collection)
-        self.assertEqual(type(qs._dereference), MongoMotorDeReference)
+        self.assertEqual(type(qs._dereference), asymongoDeReference)
 
     @async_test
     def test_get(self):
@@ -558,7 +558,7 @@ if PY35:
 
         @classmethod
         def setUpClass(cls):
-            db = 'mongomotor-test-unit-{}{}'.format(sys.version_info.major,
+            db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
                                                     sys.version_info.minor)
             connect(db)
 
