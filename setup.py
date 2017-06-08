@@ -7,7 +7,7 @@ def get_version_from_file():
     # get version number from __init__ file
     # before module is installed
 
-    fname = 'asymongo/__init__.py'
+    fname = 'SanicMongo/__init__.py'
     with open(fname) as f:
         fcontent = f.readlines()
     version_line = [l for l in fcontent if 'VERSION' in l][0]
@@ -28,7 +28,7 @@ MongoMotor: An async document-object mapper for MongoDB
 """
 LONG_DESCRIPTION = get_long_description_from_file()
 
-setup(name='asymongo',
+setup(name='SanicMongo',
       version=VERSION,
       author='BeePaste',
       author_email='hi@beepaste.io',
@@ -49,4 +49,4 @@ setup(name='asymongo',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],
       test_suite='tests',
-      provides=['asymongo'])
+      provides=['SanicMongo'])

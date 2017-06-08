@@ -3,7 +3,7 @@
 from mongoengine.dereference import DeReference
 
 
-class asymongoDeReference(DeReference):
+class SanicMongoDeReference(DeReference):
 
     def _find_references(self, *args, **kwargs):
         """

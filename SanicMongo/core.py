@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of asymongo.
+# This file is part of SanicMongo.
 
-# asymongo is free software: you can redistribute it and/or modify
+# SanicMongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# asymongo is distributed in the hope that it will be useful,
+# SanicMongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
+# along with SanicMongo. If not, see <http://www.gnu.org/licenses/>.
 
 import textwrap
 from motor.core import (AgnosticCollection, AgnosticClient, AgnosticDatabase,
@@ -24,13 +24,13 @@ from motor.metaprogramming import create_class_with_framework, ReadOnlyProperty
 import pymongo
 from pymongo.database import Database
 from pymongo.collection import Collection
-from asymongo import PY35
-from asymongo.metaprogramming import OriginalDelegate
+from SanicMongo import PY35
+from SanicMongo.metaprogramming import OriginalDelegate
 
 
-class asymongoAgnosticCursor(AgnosticCursor):
+class SanicMongoAgnosticCursor(AgnosticCursor):
 
-    __motor_class_name__ = 'asymongoCursor'
+    __motor_class_name__ = 'SanicMongoCursor'
 
     distinct = OriginalDelegate()
     explain = OriginalDelegate()
@@ -59,13 +59,13 @@ class asymongoAgnosticCursor(AgnosticCursor):
         r = self.delegate[index]
         if isinstance(r, type(self.delegate)):
             # If the response is a cursor, transform it into a
-            # asymongo cursor.
+            # SanicMongo cursor.
             r = type(self)(r, self.collection)
         return r
 
     if PY35:
         exec(textwrap.dedent("""
-        from asymongo.decorators import aiter_compat
+        from SanicMongo.decorators import aiter_compat
         @aiter_compat
         def __aiter__(self):
             return self
@@ -78,9 +78,9 @@ class asymongoAgnosticCursor(AgnosticCursor):
         """), globals(), locals())
 
 
-class asymongoAgnosticCollection(AgnosticCollection):
+class SanicMongoAgnosticCollection(AgnosticCollection):
 
-    __motor_class_name__ = 'asymongoCollection'
+    __motor_class_name__ = 'SanicMongoCollection'
 
     # Using the original delegate method (but with motor pool and event)
     # so I don't get a future as the return value and don't need to work
@@ -97,11 +97,11 @@ class asymongoAgnosticCollection(AgnosticCollection):
     def __init__(self, database, name, _delegate=None):
 
         db_class = create_class_with_framework(
-            asymongoAgnosticDatabase, self._framework, self.__module__)
+            SanicMongoAgnosticDatabase, self._framework, self.__module__)
 
         if not isinstance(database, db_class):
-            raise TypeError("First argument to asymongoCollection must be "
-                            "asymongoDatabase, not %r" % database)
+            raise TypeError("First argument to SanicMongoCollection must be "
+                            "SanicMongoDatabase, not %r" % database)
 
         delegate = _delegate or Collection(database.delegate, name)
         super(AgnosticCollection, self).__init__(delegate)
@@ -125,21 +125,21 @@ class asymongoAgnosticCollection(AgnosticCollection):
 
     def __getitem__(self, name):
         collection_class = create_class_with_framework(
-            asymongoAgnosticCollection, self._framework, self.__module__)
+            SanicMongoAgnosticCollection, self._framework, self.__module__)
 
         return collection_class(self.database, self.name + '.' + name)
 
     def find(self, *args, **kwargs):
-        """Create a :class:`asymongoAgnosticCursor`. Same parameters as for
+        """Create a :class:`SanicMongoAgnosticCursor`. Same parameters as for
         PyMongo's :meth:`~pymongo.collection.Collection.find`.
 
         Note that ``find`` does not take a `callback` parameter, nor does
         it return a Future, because ``find`` merely creates a
-        :class:`asymongoAgnosticCursor` without performing any operations
+        :class:`SanicMongoAgnosticCursor` without performing any operations
         on the server.
-        ``asymongoAgnosticCursor`` methods such as
-        :meth:`~asymongoAgnosticCursor.to_list` or
-        :meth:`~asymongoAgnosticCursor.count` perform actual operations.
+        ``SanicMongoAgnosticCursor`` methods such as
+        :meth:`~SanicMongoAgnosticCursor.to_list` or
+        :meth:`~SanicMongoAgnosticCursor.count` perform actual operations.
         """
         if 'callback' in kwargs:
             raise pymongo.errors.InvalidOperation(
@@ -147,21 +147,21 @@ class asymongoAgnosticCollection(AgnosticCollection):
 
         cursor = self.delegate.find(*args, **kwargs)
         cursor_class = create_class_with_framework(
-            asymongoAgnosticCursor, self._framework, self.__module__)
+            SanicMongoAgnosticCursor, self._framework, self.__module__)
 
         return cursor_class(cursor, self)
 
 
-class asymongoAgnosticDatabase(AgnosticDatabase):
+class SanicMongoAgnosticDatabase(AgnosticDatabase):
 
-    __motor_class_name__ = 'asymongoDatabase'
+    __motor_class_name__ = 'SanicMongoDatabase'
 
     dereference = OriginalDelegate()
     authenticate = OriginalDelegate()
 
     def __init__(self, client, name, _delegate=None):
         if not isinstance(client, AgnosticClient):
-            raise TypeError("First argument to asymongoDatabase must be "
+            raise TypeError("First argument to SanicMongoDatabase must be "
                             "a Motor client, not %r" % client)
 
         self._client = client
@@ -185,12 +185,12 @@ class asymongoAgnosticDatabase(AgnosticDatabase):
 
     def __getitem__(self, name):
         collection_class = create_class_with_framework(
-            asymongoAgnosticCollection, self._framework, self.__module__)
+            SanicMongoAgnosticCollection, self._framework, self.__module__)
 
         return collection_class(self, name)
 
 
-class asymongoAgnosticClientBase(AgnosticClient):
+class SanicMongoAgnosticClientBase(AgnosticClient):
 
     max_write_batch_size = ReadOnlyProperty()
 
@@ -211,11 +211,11 @@ class asymongoAgnosticClientBase(AgnosticClient):
 
     def __getitem__(self, name):
         db_class = create_class_with_framework(
-            asymongoAgnosticDatabase, self._framework, self.__module__)
+            SanicMongoAgnosticDatabase, self._framework, self.__module__)
 
         return db_class(self, name)
 
 
-class asymongoAgnosticClient(asymongoAgnosticClientBase, AgnosticClient):
+class SanicMongoAgnosticClient(SanicMongoAgnosticClientBase, AgnosticClient):
 
-    __motor_class_name__ = 'asymongoClient'
+    __motor_class_name__ = 'SanicMongoClient'

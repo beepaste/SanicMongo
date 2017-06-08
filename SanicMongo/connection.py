@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of asymongo.
+# This file is part of SanicMongo.
 
-# asymongo is free software: you can redistribute it and/or modify
+# SanicMongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# asymongo is distributed in the hope that it will be useful,
+# SanicMongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
+# along with SanicMongo. If not, see <http://www.gnu.org/licenses/>.
 
 
 from mongoengine.connection import (connect as me_connect,
@@ -23,11 +23,11 @@ from mongoengine.connection import (connect as me_connect,
                                     disconnect as me_disconnect,
                                     register_connection)
 
-from asymongo import utils
-from asymongo.clients import (asymongoAsyncIOClient)
-from asymongo.monkey import MonkeyPatcher
+from SanicMongo import utils
+from SanicMongo.clients import (SanicMongoAsyncIOClient)
+from SanicMongo.monkey import MonkeyPatcher
 
-CLIENTS = {'asyncio': (asymongoAsyncIOClient,)}
+CLIENTS = {'asyncio': (SanicMongoAsyncIOClient,)}
 
 
 def connect(db=None, async_framework='asyncio',

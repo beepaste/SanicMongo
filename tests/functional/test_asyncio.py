@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of asymongo.
+# This file is part of SanicMongo.
 
-# asymongo is free software: you can redistribute it and/or modify
+# SanicMongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# asymongo is distributed in the hope that it will be useful,
+# SanicMongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
+# along with SanicMongo. If not, see <http://www.gnu.org/licenses/>.
 
 
 import asyncio
@@ -24,9 +24,9 @@ import os
 import sys
 import unittest
 from mongoengine.errors import OperationError
-from asymongo import connect, disconnect
-from asymongo import Document, EmbeddedDocument
-from asymongo.fields import (StringField, IntField, ListField, DictField,
+from SanicMongo import connect, disconnect
+from SanicMongo import Document, EmbeddedDocument
+from SanicMongo.fields import (StringField, IntField, ListField, DictField,
                                EmbeddedDocumentField, ReferenceField,
                                FileField)
 
@@ -34,11 +34,11 @@ from tests import async_test
 from tests.functional import DATA_DIR
 
 
-db = 'asymongo-test-{}{}'.format(sys.version_info.major,
+db = 'SanicMongo-test-{}{}'.format(sys.version_info.major,
                                    sys.version_info.minor)
 
 
-class asymongoTest(unittest.TestCase):
+class SanicMongoTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -50,10 +50,10 @@ class asymongoTest(unittest.TestCase):
         disconnect()
 
     def setUp(self):
-        super(asymongoTest, self).setUp()
+        super(SanicMongoTest, self).setUp()
 
         # some models to simple tests over
-        # asymongo
+        # SanicMongo
 
         class EmbedRef(EmbeddedDocument):
             list_field = ListField()
@@ -94,7 +94,7 @@ class asymongoTest(unittest.TestCase):
         yield from self.otherdoc.drop_collection()
         yield from self.refdoc.drop_collection()
 
-        super(asymongoTest, self).tearDown()
+        super(SanicMongoTest, self).tearDown()
 
     @async_test
     def test_create(self):
@@ -213,7 +213,7 @@ class asymongoTest(unittest.TestCase):
         self.assertEqual(count, 3)
 
         with self.assertRaises(Exception):
-            # len does not work with asymongo
+            # len does not work with SanicMongo
             len(self.maindoc.objects.count())
 
     @async_test

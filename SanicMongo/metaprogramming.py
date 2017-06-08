@@ -2,20 +2,20 @@
 
 # Copyright 2016 Juca Crispim <juca@poraodojuca.net>
 
-# This file is part of asymongo.
+# This file is part of SanicMongo.
 
-# asymongo is free software: you can redistribute it and/or modify
+# SanicMongo is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# asymongo is distributed in the hope that it will be useful,
+# SanicMongo is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with asymongo. If not, see <http://www.gnu.org/licenses/>.
+# along with SanicMongo. If not, see <http://www.gnu.org/licenses/>.
 
 from copy import copy
 import functools
@@ -24,10 +24,10 @@ from mongoengine.base.metaclasses import TopLevelDocumentMetaclass
 from mongoengine.context_managers import switch_db as me_switch_db
 from motor.metaprogramming import MotorAttributeFactory
 from pymongo.database import Database
-from asymongo import utils
-from asymongo.connection import DEFAULT_CONNECTION_NAME
-from asymongo.exceptions import ConfusionError
-from asymongo.monkey import MonkeyPatcher
+from SanicMongo import utils
+from SanicMongo.connection import DEFAULT_CONNECTION_NAME
+from SanicMongo.exceptions import ConfusionError
+from SanicMongo.monkey import MonkeyPatcher
 
 
 def asynchronize(method, cls_meth=False):
@@ -176,7 +176,7 @@ class OriginalDelegate(MotorAttributeFactory):
     connects to database but I want to do that in the mongoengine methods,
     the driver methods should work in a `sync` style, in order to not break
     the mongoengine code, but in a child greenlet to handle the I/O stuff.
-    Usually is complementary to :class:`~asymongo.metaprogramming.Async`.
+    Usually is complementary to :class:`~SanicMongo.metaprogramming.Async`.
     """
 
     def create_attribute(self, cls, attr_name):
@@ -187,7 +187,7 @@ class Async(MotorAttributeFactory):
 
     """A descriptor that wraps a mongoengine method, such as save or delete
     and returns an asynchronous version of the method. Usually is
-    complementary to :class:`~asymongo.metaprogramming.OriginalDelegate`.
+    complementary to :class:`~SanicMongo.metaprogramming.OriginalDelegate`.
     """
 
     def __init__(self, cls_meth=False):

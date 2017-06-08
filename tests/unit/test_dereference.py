@@ -2,13 +2,13 @@
 
 import sys
 from unittest import TestCase
-from asymongo import dereference, Document, connect, disconnect
-from asymongo.fields import StringField, ListField, ReferenceField
-from asymongo.metaprogramming import asynchronize
+from SanicMongo import dereference, Document, connect, disconnect
+from SanicMongo.fields import StringField, ListField, ReferenceField
+from SanicMongo.metaprogramming import asynchronize
 from tests import async_test
 
 
-class asymongoDeReferenceTest(TestCase):
+class SanicMongoDeReferenceTest(TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -23,7 +23,7 @@ class asymongoDeReferenceTest(TestCase):
         cls.test_ref = TestRef
         cls.test_cls = TestCls
 
-        db = 'asymongo-test-unit-{}{}'.format(sys.version_info.major,
+        db = 'SanicMongo-test-unit-{}{}'.format(sys.version_info.major,
                                                 sys.version_info.minor)
         connect(db)
 
